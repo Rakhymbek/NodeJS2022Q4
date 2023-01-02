@@ -1,8 +1,12 @@
-const path = require("path");
+import path from "path";
+import NodemonPlugin from "nodemon-webpack-plugin";
+import { DefinePlugin } from "webpack";
+import dotenv from "dotenv";
 
 module.exports = {
   entry: path.resolve(__dirname, "./src/index.ts"),
-  mode: 'development',
+  mode: process.env.NODE_ENV,
+  target: "node",
   module: {
     rules: [
       {
@@ -19,4 +23,10 @@ module.exports = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
+  plugins: [
+    new NodemonPlugin({ script: "dist/bundle.js" }),
+    new DefinePlugin({
+      "process.env": JSON.stringify(dotenv.config().parsed),
+    }),
+  ],
 };
