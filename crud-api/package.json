@@ -3,8 +3,19 @@
   "version": "1.0.0",
   "description": "task is to implement simple CRUD API using in-memory database underneath.",
   "main": "src/index.ts",
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts,json",
+    "ignore": [
+      "src/**/*.spec.ts",
+      ".git",
+      "node_modules/**/node_modules"
+    ]
+  },
   "scripts": {
-    "start:dev": "cross-env NODE_ENV=development webpack --watch",
+    "start:dev": "cross-env NODE_ENV=development webpack -w",
     "start:prod": "cross-env NODE_ENV=production webpack && node ./dist/bundle.js",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
