@@ -1,7 +1,7 @@
-import { IUsers } from "../models/users.model";
+import { IUser, IUsers } from "../models/users.model";
 
 export default async function getFormattedResponse(
-  users: IUsers,
+  users: IUsers | IUser | string,
   statusCode: number
 ) {
   const data = {

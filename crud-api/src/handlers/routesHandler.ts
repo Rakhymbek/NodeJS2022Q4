@@ -1,16 +1,27 @@
 import { IncomingMessage } from "http";
 import { IResponse } from "../models/response.model";
+import { IUser } from "../models/users.model";
 import get from "../routes/get";
+import post from "../routes/post";
+import getFormattedResponse from "../utils/getFormattedResponse";
+import parseData from "../utils/parseData";
 
 export default async function routesHandler(
   req: IncomingMessage
 ): Promise<IResponse | undefined> {
   const endpoint = req.url?.split("/").slice(1, 3).join("/");
+  const userId = req.url?.split("/")[3]!;
+  let userData;
 
   if (endpoint === "api/users") {
     switch (req.method) {
       case "GET":
-        return await get();
+        return await get(userId);
+      case "POST":
+        userData = (await parseData(req)) as IUser;
+        return await post(userData);
     }
+  } else {
+    return getFormattedResponse("The page is not found", 404);
   }
 }
