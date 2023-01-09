@@ -3,6 +3,7 @@ import { IResponse } from "../models/response.model";
 import { IUser } from "../models/users.model";
 import get from "../routes/get";
 import post from "../routes/post";
+import put from "../routes/put";
 import getFormattedResponse from "../utils/getFormattedResponse";
 import parseData from "../utils/parseData";
 
@@ -20,8 +21,11 @@ export default async function routesHandler(
       case "POST":
         userData = (await parseData(req)) as IUser;
         return await post(userData);
+      case "PUT":
+        userData = (await parseData(req)) as IUser;
+        return await put(userId, userData);
     }
   } else {
-    return getFormattedResponse("The page is not found", 404);
+    return await getFormattedResponse("The page is not found", 404);
   }
 }
