@@ -19,11 +19,9 @@ export default async function post({ username, age, hobbies }: IUser) {
 }
 
 async function createUser(userData: IUser) {
-  return new Promise<IUser>((res) => {
-    const user = { id: uuid(), ...userData };
-    usersData.users.push(user);
-    res(user);
-  });
+  const user = { id: uuid(), ...userData };
+  usersData.users.push(user);
+  return user;
 }
 
 function checkDataTypes(userData: IUser) {
