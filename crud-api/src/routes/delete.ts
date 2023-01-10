@@ -13,7 +13,8 @@ export default async function deleteUser(userId: string) {
     return await getFormattedResponse("User was not found", 404);
   } else {
     await deleteUserById(userId);
-    return await getFormattedResponse(`${user.username} was successfully deleted`, 204); // A 204 ( No Content ) no further information is to be supplied. You won't receive any messages!
+    // A 204 ( No Content ) no further information is to be supplied. You won't receive any messages!
+    return await getFormattedResponse(`${user.username} was successfully deleted`, 204);
   }
 }
 

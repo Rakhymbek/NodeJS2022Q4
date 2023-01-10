@@ -11,24 +11,27 @@ import parseData from "../utils/parseData";
 export default async function routesHandler(
   req: IncomingMessage
 ): Promise<IResponse | undefined> {
-  const endpoint = req.url?.split("/").slice(1, 3).join("/");
   const userId = req.url?.split("/")[3]!;
   let userData;
 
-  if (endpoint === "api/users") {
+  try {
     switch (req.method) {
       case "GET":
-        return await get(userId);
+        return await get(req, userId);
       case "POST":
         userData = (await parseData(req)) as IUser;
-        return await post(userData);
+        return await post(req, userData);
       case "PUT":
         userData = (await parseData(req)) as IUser;
         return await put(userId, userData);
       case "DELETE":
         return await deleteUser(userId);
+      default:
+        return await getFormattedResponse("Method Not Allowed", 405);
     }
-  } else {
-    return await getFormattedResponse("The page is not found", 404);
+  } catch (error) {
+    return await getFormattedResponse("Internal Server Error", 500);
   }
+
+
 }

@@ -1,13 +1,13 @@
-import { IUser, IUsers } from "../models/users.model";
+import { IResponseBody } from './../models/response.model';
 
 export default async function getFormattedResponse(
-  users: IUsers | IUser | string,
+  responseBody: IResponseBody,
   statusCode: number
 ) {
   const data = {
     headers: { "Content-Type": "application/json" },
     statusCode,
-    body: JSON.stringify(users),
+    body: JSON.stringify(responseBody),
   };
   return data;
 }

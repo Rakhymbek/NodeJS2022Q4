@@ -1,20 +1,26 @@
+import { IncomingMessage } from 'http';
 import { IUser } from "../models/users.model";
 import { v4 as uuid } from "uuid";
 import { usersData } from "../db/usersData";
 import getFormattedResponse from "../utils/getFormattedResponse";
 
-export default async function post({ username, age, hobbies }: IUser) {
+export default async function post(req: IncomingMessage, { username, age, hobbies }: IUser) {
+  const endpoint = req.url;
   const userData = { username, age, hobbies };
-  if (!checkDataTypes(userData)) {
-    return await getFormattedResponse("Unprocessable Entity", 422);
-  } else if (username && age && hobbies) {
-    let user = await createUser(userData);
-    return await getFormattedResponse(user, 201);
+  if (endpoint === '/api/users') {
+    if (!checkDataTypes(userData)) {
+      return await getFormattedResponse("Unprocessable Entity", 422);
+    } else if (username && age && hobbies) {
+      let user = await createUser(userData);
+      return await getFormattedResponse(user, 201);
+    } else {
+      return await getFormattedResponse(
+        "request body does not contain required fields",
+        400
+      );
+    }
   } else {
-    return await getFormattedResponse(
-      "request body does not contain required fields",
-      400
-    );
+    return await getFormattedResponse("Page is not found", 404);
   }
 }
 

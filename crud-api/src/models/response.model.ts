@@ -1,3 +1,4 @@
+import { IUser, IUsers } from './users.model';
 import { IncomingHttpHeaders } from "http";
 
 export interface IResponse {
@@ -5,3 +6,5 @@ export interface IResponse {
   statusCode: number;
   headers: IncomingHttpHeaders;
 }
+
+export type IResponseBody = IUsers | IUser | string;
