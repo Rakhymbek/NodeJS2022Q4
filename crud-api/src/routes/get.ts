@@ -1,4 +1,5 @@
 import { IncomingMessage } from 'http';
+import { ErrorMessages } from '../constants';
 import getUser from "../controllers/getUser";
 import getUsers from "../controllers/getUsers";
 import getFormattedResponse from '../utils/getFormattedResponse';
@@ -11,6 +12,6 @@ export default async function get(req: IncomingMessage, userId: string) {
   } else if (userId) {
     return await getUser(userId);
   } else {
-    return await getFormattedResponse("Page is not found", 404);
+    return await getFormattedResponse(ErrorMessages.INVALID_ROUTE, 404);
   }
 }

@@ -1,4 +1,6 @@
+import { RequestMethods } from './../constants';
 import { IncomingMessage } from "http";
+import { ErrorMessages } from "../constants";
 import { IResponse } from "../models/response.model";
 import { IUser } from "../models/users.model";
 import deleteUser from "../routes/delete";
@@ -16,21 +18,21 @@ export default async function routesHandler(
 
   try {
     switch (req.method) {
-      case "GET":
+      case RequestMethods.GET:
         return await get(req, userId);
-      case "POST":
+      case RequestMethods.POST:
         userData = (await parseData(req)) as IUser;
         return await post(req, userData);
-      case "PUT":
+      case RequestMethods.PUT:
         userData = (await parseData(req)) as IUser;
         return await put(userId, userData);
-      case "DELETE":
+      case RequestMethods.DELETE:
         return await deleteUser(userId);
       default:
-        return await getFormattedResponse("Method Not Allowed", 405);
+        return await getFormattedResponse(ErrorMessages.NOT_ALLOWED, 405);
     }
   } catch (error) {
-    return await getFormattedResponse("Internal Server Error", 500);
+    return await getFormattedResponse(ErrorMessages.SERVER_ERROR, 500);
   }
 
 

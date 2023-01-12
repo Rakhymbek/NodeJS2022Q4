@@ -1,3 +1,4 @@
+import { ErrorMessages } from './../constants';
 import { validate } from "uuid";
 import { usersData } from "../db/usersData";
 import { IUser } from "../models/users.model";
@@ -16,9 +17,9 @@ export default async function put(
     hobbies,
   };
   if (!validate(userId)) {
-    return await getFormattedResponse("Invalid user's id", 400);
+    return await getFormattedResponse(ErrorMessages.INVALID_ID, 400);
   } else if (!existedUser) {
-    return await getFormattedResponse("User was not found", 404);
+    return await getFormattedResponse(ErrorMessages.NO_USER, 404);
   } else {
     const updatedUser = await updateUser(userData);
     return await getFormattedResponse(updatedUser, 200);
