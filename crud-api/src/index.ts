@@ -21,8 +21,14 @@ async function requestListener(
   }
 }
 
-const server = createServer(requestListener).listen({ port: PORT, host: HOST }, () => {
+export const server = createServer(requestListener).listen({ port: PORT, host: HOST }, () => {
   console.log(`Server is running on http://${HOST}:${PORT}`);
 });
 
 
+process.on("SIGINT", () => {
+  server.close(() => {
+    console.log(`Server on http://${HOST}:${PORT} is closed`);
+    process.exit()
+  });
+})
