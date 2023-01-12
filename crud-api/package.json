@@ -17,6 +17,7 @@
   "scripts": {
     "start:dev": "cross-env NODE_ENV=development webpack -w",
     "start:prod": "cross-env NODE_ENV=production webpack && node ./dist/bundle.js",
+    "start:multi": "cross-env NODE_ENV=development PORT=4000 nodemon src/cluster.ts",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
