@@ -1,4 +1,5 @@
 import { mouse, up, left, right, down } from "@nut-tree/nut-js";
+import drawRectangle from "./commands/drawRectangle.js";
 import { Commands } from "./constants.js";
 export default async function commandsHandler(data: string) {
   if (data) {
@@ -20,6 +21,8 @@ export default async function commandsHandler(data: string) {
       case Commands.MOUSE_POSITION:
         const mousePosition = await mouse.getPosition();
         return `${data} ${mousePosition.x},${mousePosition.y}`;
+      case Commands.DRAW_RECTANGLE:
+        await drawRectangle(Number(width), Number(length));
       default:
         return data;
     }
