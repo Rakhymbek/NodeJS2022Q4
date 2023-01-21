@@ -1,6 +1,7 @@
 import { mouse, up, left, right, down } from "@nut-tree/nut-js";
 import drawCircle from "./commands/drawCircle.js";
 import drawRectangle from "./commands/drawRectangle.js";
+import drawSquare from "./commands/drawSquare.js";
 import { Commands } from "./constants.js";
 export default async function commandsHandler(data: string) {
   if (data) {
@@ -27,6 +28,9 @@ export default async function commandsHandler(data: string) {
         break;
       case Commands.DRAW_CIRCLE:
         await drawCircle(Number(width));
+        break;
+      case Commands.DRAW_SQUARE:
+        await drawSquare(Number(width));
         break;
       default:
         return data;
