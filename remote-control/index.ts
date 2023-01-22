@@ -22,8 +22,7 @@ wss.on("connection", (ws) => {
   });
 });
 
-wss.on('close', () => console.log("Close connection"))
-
 process.on("SIGINT", () => {
-  console.log("Server is closed")
-})
+  wss.on("close", () => console.log("Close connection"));
+  console.log("Server is closed");
+});

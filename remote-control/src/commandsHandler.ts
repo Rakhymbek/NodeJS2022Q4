@@ -2,6 +2,7 @@ import { mouse, up, left, right, down } from "@nut-tree/nut-js";
 import drawCircle from "./commands/drawCircle.js";
 import drawRectangle from "./commands/drawRectangle.js";
 import drawSquare from "./commands/drawSquare.js";
+import prntScreen from "./commands/prntScreen.js";
 import { Commands } from "./constants.js";
 export default async function commandsHandler(data: string) {
   if (data) {
@@ -32,6 +33,9 @@ export default async function commandsHandler(data: string) {
       case Commands.DRAW_SQUARE:
         await drawSquare(Number(width));
         break;
+      case Commands.PRNT_SCRN:
+        const imgScreen = await prntScreen();
+        return `${data} ${imgScreen}`;
       default:
         return data;
     }
